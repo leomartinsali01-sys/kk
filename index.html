@@ -514,56 +514,132 @@
         }
         .reviews-dot.active { background: var(--accent-dark); width: 20px; border-radius: 3px; }
 
-        /* ── SAFETY ── */
-        .safety { padding: 110px 6%; background: var(--navy); position: relative; overflow: hidden; }
-        .safety::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(77,232,194,0.18) 50%, transparent);
+        /* ── SAFETY (novo layout full-bleed) ── */
+        .safety {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 92vh;
+            position: relative;
+            overflow: hidden;
         }
-        .safety-inner {
-            max-width: 1200px; margin: 0 auto;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+
+        /* Lado esquerdo — imagem */
+        .safety-img-side {
+            position: relative; overflow: hidden;
         }
-        .safety-visual { position: relative; }
-        .safety-shield-box {
-            width: 100%; aspect-ratio: 1; max-width: 400px;
-            background: linear-gradient(135deg, rgba(77,232,194,0.05), rgba(26,75,140,0.12));
-            border: 1px solid rgba(77,232,194,0.1); border-radius: 4px;
+        .safety-img-side img {
+            width: 100%; height: 100%; object-fit: cover; display: block;
+            transition: transform 1.2s cubic-bezier(0.25,0.46,0.45,0.94);
+            filter: brightness(0.72) saturate(0.85);
+        }
+        .safety:hover .safety-img-side img { transform: scale(1.04); }
+        .safety-img-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to right, transparent 50%, var(--navy) 100%),
+                        linear-gradient(to top, var(--navy) 0%, transparent 35%);
+        }
+
+        /* Badges flutuantes sobre a imagem */
+        .safety-img-badges {
+            position: absolute; bottom: 40px; left: 36px;
+            display: flex; flex-direction: column; gap: 12px;
+        }
+        .safety-img-badge {
+            display: flex; align-items: center; gap: 12px;
+            background: rgba(6,15,30,0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(77,232,194,0.25);
+            border-radius: 3px; padding: 12px 18px;
+            white-space: nowrap;
+        }
+        .safety-img-badge-icon {
+            width: 36px; height: 36px;
+            background: rgba(77,232,194,0.12); border-radius: 3px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 7rem; position: relative;
+            font-size: 1rem; flex-shrink: 0;
         }
-        .safety-shield-box::before {
-            content: ''; position: absolute; inset: -1px; border-radius: 4px;
-            background: linear-gradient(135deg, rgba(77,232,194,0.22), transparent 60%);
-            z-index: -1;
+        .safety-img-badge-text strong { font-size: 0.82rem; display: block; color: var(--white); }
+        .safety-img-badge-text span   { font-size: 0.68rem; color: var(--gray); }
+
+        /* Lado direito — conteúdo */
+        .safety-content-side {
+            background: var(--navy);
+            display: flex; flex-direction: column; justify-content: center;
+            padding: 80px 68px; position: relative; overflow: hidden;
         }
-        .safety-pill-stack {
-            position: absolute; right: -22px; top: 50%; transform: translateY(-50%);
+        .safety-content-side::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 1px; height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(77,232,194,0.2) 40%, transparent);
+        }
+        .safety-glow {
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 80% 20%, rgba(26,75,140,0.18), transparent 65%);
+            pointer-events: none;
+        }
+
+        /* Contador de credenciais */
+        .safety-credential-row {
+            display: flex; gap: 32px; margin-bottom: 44px;
+            position: relative; z-index: 1;
+        }
+        .safety-credential {
+            text-align: center;
+        }
+        .safety-credential-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem; font-weight: 900;
+            color: var(--accent); line-height: 1; display: block;
+        }
+        .safety-credential-label {
+            font-size: 0.68rem; color: var(--gray);
+            letter-spacing: 1.5px; text-transform: uppercase; margin-top: 4px;
+        }
+        .safety-credential-sep {
+            width: 1px; background: rgba(77,232,194,0.15); align-self: stretch;
+        }
+
+        /* Cards de diferenciais */
+        .safety-cards {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 14px; position: relative; z-index: 1;
+        }
+        .safety-card {
+            background: rgba(12,31,58,0.5);
+            border: 1px solid rgba(77,232,194,0.1);
+            border-radius: 4px; padding: 20px 18px;
             display: flex; flex-direction: column; gap: 10px;
+            transition: background 0.3s, border-color 0.3s, transform 0.3s;
         }
-        .safety-pill {
-            background: rgba(12,31,58,0.97);
-            border: 1px solid rgba(77,232,194,0.16); border-radius: 3px;
-            padding: 12px 18px; display: flex; align-items: center; gap: 11px;
-            white-space: nowrap; box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        .safety-card:hover {
+            background: rgba(12,31,58,0.9);
+            border-color: rgba(77,232,194,0.3);
+            transform: translateY(-3px);
         }
-        .safety-pill-icon { font-size: 1.1rem; }
-        .safety-pill-text strong { font-size: 0.79rem; display: block; color: var(--white); }
-        .safety-pill-text span { font-size: 0.67rem; color: var(--gray); }
-        .safety-checks { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .check-item {
-            display: flex; align-items: center; gap: 12px; padding: 14px 16px;
-            background: rgba(77,232,194,0.03);
-            border: 1px solid rgba(77,232,194,0.09); border-radius: 3px;
-            transition: border-color 0.3s, background 0.3s;
-        }
-        .check-item:hover { border-color: rgba(77,232,194,0.22); background: rgba(77,232,194,0.06); }
-        .check-icon {
-            width: 30px; height: 30px; background: rgba(77,232,194,0.1); border-radius: 2px;
+        .safety-card-icon {
+            width: 40px; height: 40px;
+            background: rgba(77,232,194,0.1);
+            border-radius: 3px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 0.85rem; flex-shrink: 0;
+            font-size: 1.1rem;
         }
-        .check-text { font-size: 0.8rem; color: var(--light); line-height: 1.4; }
+        .safety-card-title {
+            font-size: 0.88rem; font-weight: 600; color: var(--white);
+        }
+        .safety-card-desc {
+            font-size: 0.76rem; color: var(--gray); line-height: 1.5;
+        }
+
+        /* Label do número de foto */
+        .safety-img-label {
+            position: absolute; top: 36px; right: 36px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .safety-img-label-line { width: 28px; height: 1px; background: var(--accent); }
+        .safety-img-label-text {
+            font-size: 0.67rem; letter-spacing: 3px; text-transform: uppercase;
+            color: var(--accent); font-weight: 600;
+        }
 
         /* ── SHARED TEXT HELPERS ── */
         .section-tag {
@@ -651,9 +727,11 @@
             .svc-photo { height: 60vw; min-height: 280px; }
             .svc-content { padding: 52px 32px; }
             .svc-divider { display: none; }
-            .safety-inner { grid-template-columns: 1fr; gap: 50px; }
-            .safety-visual { display: none; }
-            .safety-checks { grid-template-columns: 1fr; }
+            .safety { grid-template-columns: 1fr; min-height: auto; }
+            .safety-img-side { height: 55vw; min-height: 260px; }
+            .safety-content-side { padding: 52px 32px; }
+            .safety-cards { grid-template-columns: 1fr; }
+            .safety-credential-row { gap: 20px; }
             .review-card { min-width: 280px; max-width: 280px; }
             .cta-header::before, .btn-wp::before { display: none; }
         }
@@ -738,6 +816,104 @@
         <div class="stat reveal reveal-delay-1"><span class="stat-number">24h</span><div class="stat-label">Atendimento Emergencial</div></div>
         <div class="stat reveal reveal-delay-2"><span class="stat-number">15+</span><div class="stat-label">Anos de Experiência</div></div>
         <div class="stat reveal reveal-delay-3"><span class="stat-number">500+</span><div class="stat-label">Condomínios Atendidos</div></div>
+    </div>
+</section>
+
+<!-- DIFERENCIAL DE SEGURANÇA -->
+<section class="safety" id="seguranca">
+
+    <!-- LADO ESQUERDO: FOTO -->
+    <div class="safety-img-side reveal">
+        <img
+            src="https://images.pexels.com/photos/8961492/pexels-photo-8961492.jpeg?auto=compress&cs=tinysrgb&w=1400"
+            onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1400&q=85'"
+            alt="Profissional de segurança pública verificando credenciais"
+            loading="lazy"
+        />
+        <div class="safety-img-overlay"></div>
+        <div class="safety-img-label">
+            <div class="safety-img-label-line"></div>
+            <span class="safety-img-label-text">Segurança</span>
+        </div>
+        <!-- Badges flutuantes sobre a foto -->
+        <div class="safety-img-badges">
+            <div class="safety-img-badge">
+                <div class="safety-img-badge-icon">✅</div>
+                <div class="safety-img-badge-text">
+                    <strong>Antecedentes Verificados</strong>
+                    <span>100% dos profissionais</span>
+                </div>
+            </div>
+            <div class="safety-img-badge">
+                <div class="safety-img-badge-icon">🎖️</div>
+                <div class="safety-img-badge-text">
+                    <strong>Disciplina Militar</strong>
+                    <span>Padrão de excelência</span>
+                </div>
+            </div>
+            <div class="safety-img-badge">
+                <div class="safety-img-badge-icon">📋</div>
+                <div class="safety-img-badge-text">
+                    <strong>Segurança Pública</strong>
+                    <span>Gestão especializada</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LADO DIREITO: CONTEÚDO -->
+    <div class="safety-content-side reveal">
+        <div class="safety-glow"></div>
+
+        <span class="section-tag" style="color:var(--accent); position:relative; z-index:1;">— Diferencial de Segurança</span>
+        <h2 class="section-title" style="color:var(--white); position:relative; z-index:1; margin-bottom:12px;">
+            Profissionais que<br>você pode <em style="font-style:italic; color:var(--accent);">confiar</em>
+        </h2>
+        <p class="section-desc" style="position:relative; z-index:1; margin-bottom:36px;">
+            Único diferencial do mercado: todos os nossos profissionais passam por rigorosa verificação de antecedentes criminais, sob gestão de especialista em Segurança Pública.
+        </p>
+
+        <!-- Números de credencial -->
+        <div class="safety-credential-row">
+            <div class="safety-credential">
+                <span class="safety-credential-num">100%</span>
+                <span class="safety-credential-label">Verificados</span>
+            </div>
+            <div class="safety-credential-sep"></div>
+            <div class="safety-credential">
+                <span class="safety-credential-num">15+</span>
+                <span class="safety-credential-label">Anos na área</span>
+            </div>
+            <div class="safety-credential-sep"></div>
+            <div class="safety-credential">
+                <span class="safety-credential-num">0</span>
+                <span class="safety-credential-label">Incidentes</span>
+            </div>
+        </div>
+
+        <!-- Cards de diferenciais -->
+        <div class="safety-cards">
+            <div class="safety-card">
+                <div class="safety-card-icon">🔍</div>
+                <div class="safety-card-title">Antecedentes Criminais</div>
+                <div class="safety-card-desc">Verificação completa antes de qualquer contratação.</div>
+            </div>
+            <div class="safety-card">
+                <div class="safety-card-icon">🛡️</div>
+                <div class="safety-card-title">Gestão Seg. Pública</div>
+                <div class="safety-card-desc">Operação com metodologia de segurança profissional.</div>
+            </div>
+            <div class="safety-card">
+                <div class="safety-card-icon">📱</div>
+                <div class="safety-card-title">Atendimento 24h</div>
+                <div class="safety-card-desc">Suporte emergencial a qualquer hora do dia ou da noite.</div>
+            </div>
+            <div class="safety-card">
+                <div class="safety-card-icon">📄</div>
+                <div class="safety-card-title">Relatórios Completos</div>
+                <div class="safety-card-desc">Documentação detalhada de cada serviço realizado.</div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -887,32 +1063,6 @@
         <div class="faq-item reveal reveal-delay-3">
             <button class="faq-toggle" onclick="this.nextElementSibling.classList.toggle('active');this.classList.toggle('active');">Há garantia no serviço?</button>
             <div class="faq-content"><p class="faq-text">Sim! Oferecemos 30 dias de garantia de satisfação em todos os serviços. Se não ficar satisfeito, devolvemos seu investimento.</p></div>
-        </div>
-    </div>
-</section>
-
-<!-- SEGURANÇA -->
-<section class="safety" id="seguranca">
-    <div class="safety-inner">
-        <div class="safety-visual reveal">
-            <div class="safety-shield-box">🛡️
-                <div class="safety-pill-stack">
-                    <div class="safety-pill"><span class="safety-pill-icon">✅</span><div class="safety-pill-text"><strong>Antecedentes Verificados</strong><span>Todos os profissionais</span></div></div>
-                    <div class="safety-pill"><span class="safety-pill-icon">🎖️</span><div class="safety-pill-text"><strong>Disciplina Militar</strong><span>Padrão de excelência</span></div></div>
-                    <div class="safety-pill"><span class="safety-pill-icon">📋</span><div class="safety-pill-text"><strong>Segurança Pública</strong><span>Gestão especializada</span></div></div>
-                </div>
-            </div>
-        </div>
-        <div>
-            <span class="section-tag reveal" style="color:var(--accent);">— Diferencial de Segurança</span>
-            <h2 class="section-title reveal" style="color:var(--white);">Profissionais que<br>você pode confiar</h2>
-            <p class="section-desc reveal">Todos os nossos profissionais passam por rigorosa verificação de antecedentes criminais. Trabalhamos com disciplina e metodologia de Segurança Pública em cada visita ao seu condomínio.</p>
-            <div class="safety-checks reveal">
-                <div class="check-item"><div class="check-icon">🔍</div><span class="check-text">Verificação de antecedentes criminais</span></div>
-                <div class="check-item"><div class="check-icon">📱</div><span class="check-text">Atendimento 24h em emergências</span></div>
-                <div class="check-item"><div class="check-icon">📄</div><span class="check-text">Relatórios detalhados de cada serviço</span></div>
-                <div class="check-item"><div class="check-icon">🎯</div><span class="check-text">Gestão por especialista em Seg. Pública</span></div>
-            </div>
         </div>
     </div>
 </section>
