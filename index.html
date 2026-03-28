@@ -715,7 +715,191 @@
         .reveal-delay-3 { transition-delay: 0.3s; }
 
         /* ── MOBILE ── */
+        /* ══════════════════════════════════════
+           MELHORIAS TECNOLÓGICAS CSS + JS
+        ══════════════════════════════════════ */
+
+        /* ── PARTÍCULAS HERO ── */
+        .hero-particles {
+            position: absolute; inset: 0;
+            pointer-events: none; z-index: 0; overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--accent);
+            opacity: 0;
+            animation: particleFloat linear infinite;
+        }
+        @keyframes particleFloat {
+            0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+            10%  { opacity: 0.4; }
+            90%  { opacity: 0.15; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+
+        /* ── EFEITO DE DIGITAÇÃO ── */
+        .typewriter-cursor {
+            display: inline-block;
+            width: 3px; height: 0.9em;
+            background: var(--accent);
+            margin-left: 4px;
+            vertical-align: middle;
+            animation: blink 0.75s step-end infinite;
+        }
+        @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* ── BOTÃO FLUTUANTE WHATSAPP ── */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px; right: 30px;
+            z-index: 9990;
+            display: flex; align-items: center; gap: 12px;
+            background: #25d366;
+            color: white;
+            text-decoration: none;
+            padding: 14px 20px 14px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem; font-weight: 600;
+            box-shadow: 0 8px 30px rgba(37,211,102,0.45);
+            transition: all 0.3s ease;
+            animation: floatPop 0.6s 2s cubic-bezier(0.34,1.56,0.64,1) both;
+        }
+        .whatsapp-float:hover {
+            transform: translateY(-4px) scale(1.04);
+            box-shadow: 0 14px 40px rgba(37,211,102,0.55);
+        }
+        .whatsapp-float svg { flex-shrink: 0; }
+        .whatsapp-float-text { line-height: 1.2; }
+        .whatsapp-float-text strong { display: block; font-size: 0.88rem; }
+        .whatsapp-float-text span { font-size: 0.72rem; opacity: 0.85; }
+        .whatsapp-float-pulse {
+            position: absolute; inset: 0; border-radius: 50px;
+            background: #25d366;
+            animation: waPulse 2s ease-out 3s infinite;
+            z-index: -1;
+        }
+        @keyframes waPulse {
+            0%   { transform: scale(1); opacity: 0.6; }
+            100% { transform: scale(1.35); opacity: 0; }
+        }
+        @keyframes floatPop {
+            from { transform: translateY(80px) scale(0.5); opacity: 0; }
+            to   { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        /* ── CONTADOR ANIMADO NOS STATS ── */
+        .stat-number { transition: color 0.3s; }
+        .stat-number.counting { color: var(--gold); }
+
+        /* ── TOAST DE NOTIFICAÇÃO ── */
+        .toast {
+            position: fixed; bottom: 110px; right: 30px;
+            background: var(--navy-mid);
+            border: 1px solid rgba(77,232,194,0.3);
+            border-radius: 4px;
+            padding: 14px 18px;
+            display: flex; align-items: center; gap: 12px;
+            font-size: 0.82rem; color: var(--light);
+            z-index: 9989;
+            transform: translateX(120%);
+            transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+            max-width: 300px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
+        .toast.show { transform: translateX(0); }
+        .toast-icon { font-size: 1.3rem; flex-shrink: 0; }
+        .toast-close {
+            margin-left: auto; background: none; border: none;
+            color: var(--gray); cursor: pointer; font-size: 1rem; padding: 0 0 0 8px;
+        }
+
+        /* ── NAVEGAÇÃO ATIVA ── */
+        nav a.active {
+            color: var(--accent) !important;
+        }
+        nav a.active::after { width: 100% !important; }
+
+        /* ── MENU HAMBURGER MOBILE ── */
+        .hamburger {
+            display: none;
+            flex-direction: column; gap: 5px;
+            cursor: pointer; padding: 4px;
+            background: none; border: none;
+        }
+        .hamburger span {
+            display: block; width: 24px; height: 2px;
+            background: var(--accent);
+            transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+            transform-origin: center;
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        .mobile-menu {
+            display: none;
+            position: fixed; inset: 0; top: 0;
+            background: rgba(6,15,30,0.98);
+            backdrop-filter: blur(20px);
+            z-index: 999;
+            flex-direction: column; align-items: center; justify-content: center;
+            gap: 36px;
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .mobile-menu.open { display: flex; opacity: 1; }
+        .mobile-menu a {
+            color: var(--white); text-decoration: none;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem; font-weight: 700;
+            transition: color 0.3s;
+        }
+        .mobile-menu a:hover { color: var(--accent); }
+        .mobile-menu-close {
+            position: absolute; top: 28px; right: 6%;
+            background: none; border: none; color: var(--gray);
+            font-size: 2rem; cursor: pointer; transition: color 0.3s;
+        }
+        .mobile-menu-close:hover { color: var(--accent); }
+
+        /* ── PARALLAX NAS FOTOS DOS SERVIÇOS ── */
+        .svc-photo img { will-change: transform; }
+
+        /* ── INDICADOR DE SEÇÃO NO SCROLL ── */
+        .section-indicator {
+            position: fixed; right: 24px; top: 50%;
+            transform: translateY(-50%);
+            display: flex; flex-direction: column; gap: 8px;
+            z-index: 800;
+        }
+        .section-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: rgba(77,232,194,0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .section-dot.active {
+            background: var(--accent);
+            transform: scale(1.6);
+        }
+        .section-dot::before {
+            content: attr(data-label);
+            position: absolute; right: 18px; top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase;
+            color: var(--accent); white-space: nowrap;
+            opacity: 0; transition: opacity 0.3s;
+            pointer-events: none;
+        }
+        .section-dot:hover::before { opacity: 1; }
+
         @media (max-width: 960px) {
+            .hamburger { display: flex; }
+            .section-indicator { display: none; }
+            .whatsapp-float-text { display: none; }
+            .whatsapp-float { padding: 14px; border-radius: 50%; }
+        }
             .hero { grid-template-columns: 1fr; min-height: auto; }
             .hero-right { height: 50vw; }
             .hero-right-overlay { background: linear-gradient(to top, var(--navy) 0%, transparent 50%); }
@@ -748,7 +932,7 @@
 </head>
 <body>
 
-<div class="urgency-banner">⏰ Vagas limitadas este mês! Resposta em até 2 horas via WhatsApp</div>
+<div class="urgency-banner">⏰ Vagas limitadas este mês! Resposta em até 2 horas · Oferta encerra em: <strong id="countdown">--:--:--</strong></div>
 <div id="progress-bar"></div>
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
@@ -766,10 +950,51 @@
         <a href="#contato" target="_self">Contato</a>
     </nav>
     <a href="https://wa.me/5521975080704?text=Olá!%20Gostaria%20de%20solicitar%20um%20orçamento%20para%20o%20meu%20condomínio.%20Podem%20me%20ajudar%3F" class="cta-header">Orçamento</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
 </header>
+
+<!-- MENU MOBILE -->
+<div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-menu-close" id="mobileMenuClose">✕</button>
+    <a href="#seguranca" class="mobile-nav-link" target="_self">Segurança</a>
+    <a href="#servicos" class="mobile-nav-link" target="_self">Serviços</a>
+    <a href="#avaliacoes" class="mobile-nav-link" target="_self">Avaliações</a>
+    <a href="#contato" class="mobile-nav-link" target="_self">Contato</a>
+</div>
+
+<!-- INDICADOR DE SEÇÃO -->
+<div class="section-indicator" id="sectionIndicator">
+    <div class="section-dot" data-target="body" data-label="Início"></div>
+    <div class="section-dot" data-target="#seguranca" data-label="Segurança"></div>
+    <div class="section-dot" data-target="#servicos" data-label="Serviços"></div>
+    <div class="section-dot" data-target="#resultados" data-label="Resultados"></div>
+    <div class="section-dot" data-target="#avaliacoes" data-label="Avaliações"></div>
+    <div class="section-dot" data-target="#contato" data-label="Contato"></div>
+</div>
+
+<!-- BOTÃO FLUTUANTE WHATSAPP -->
+<a href="https://wa.me/5521975080704?text=Olá!%20Vim%20pelo%20site%20da%20Perseverança%20e%20gostaria%20de%20um%20orçamento.%20Podem%20me%20ajudar%3F"
+   class="whatsapp-float" target="_blank" aria-label="Falar no WhatsApp">
+    <div class="whatsapp-float-pulse"></div>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <div class="whatsapp-float-text">
+        <strong>Falar no WhatsApp</strong>
+        <span>Resposta em até 2h</span>
+    </div>
+</a>
+
+<!-- TOAST DE NOTIFICAÇÃO -->
+<div class="toast" id="toast">
+    <span class="toast-icon">🛡️</span>
+    <span>Profissionais 100% verificados prontos para atender seu condomínio!</span>
+    <button class="toast-close" id="toastClose">✕</button>
+</div>
 
 <!-- HERO -->
 <section class="hero">
+    <div class="hero-particles" id="heroParticles"></div>
     <div class="hero-left">
         <div class="hero-bg-glow"></div>
         <div class="hero-grid-lines"></div>
@@ -778,7 +1003,7 @@
                 <div class="hero-badge-dot"></div>
                 <span>Gestão em serviços de Excelência</span>
             </div>
-            <h1>Seu condomínio<br>gerido com<br><em>disciplina.</em></h1>
+            <h1>Seu condomínio<br>gerido com<br><em id="typewriterTarget"></em><span class="typewriter-cursor" id="twCursor"></span></h1>
             <p class="hero-desc">Rigor, confiança e profissionalismo sob a gestão de especialista em Segurança Pública. Soluções completas para o seu patrimônio.</p>
             <div class="hero-actions">
                 <a href="https://wa.me/5521975080704?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20solicitar%20um%20orçamento%20para%20o%20meu%20condomínio.%20Podem%20me%20informar%20os%20serviços%20disponíveis%3F" class="btn-wp">
@@ -1147,16 +1372,20 @@
 </footer>
 
 <script>
-    // Progress bar
+    /* ══════════════════════════════════════
+       MELHORIAS JAVASCRIPT
+    ══════════════════════════════════════ */
+
+    // ── 1. BARRA DE PROGRESSO ──
     const bar = document.getElementById('progress-bar');
     window.addEventListener('scroll', () => {
         const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
         bar.style.width = pct + '%';
-    });
+    }, { passive: true });
 
-    // Cursor
+    // ── 2. CURSOR PERSONALIZADO ──
     const cursor = document.getElementById('cursor');
-    const ring = document.getElementById('cursorRing');
+    const ring   = document.getElementById('cursorRing');
     let mx=0, my=0, rx=0, ry=0;
     document.addEventListener('mousemove', e => {
         mx = e.clientX; my = e.clientY;
@@ -1167,38 +1396,232 @@
         ring.style.left = rx+'px'; ring.style.top = ry+'px';
         requestAnimationFrame(animRing);
     })();
-
-    // Header scroll — esconde banner ao rolar
-    const header = document.getElementById('header');
-    window.addEventListener('scroll', () => {
-        header.classList.toggle('scrolled', window.scrollY > 60);
+    // Cursor cresce em links/botões
+    document.querySelectorAll('a, button').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.style.transform = 'translate(-50%,-50%) scale(2.5)';
+            ring.style.transform   = 'translate(-50%,-50%) scale(1.5)';
+        });
+        el.addEventListener('mouseleave', () => {
+            cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+            ring.style.transform   = 'translate(-50%,-50%) scale(1)';
+        });
     });
 
-    // Reveal on scroll (seguro — conteúdo visível sem JS)
+    // ── 3. HEADER SCROLL + SEÇÃO ATIVA NO NAV ──
+    const header   = document.getElementById('header');
+    const navLinks = document.querySelectorAll('nav a');
+    const sections = ['seguranca','servicos','resultados','faq','avaliacoes','contato']
+        .map(id => document.getElementById(id)).filter(Boolean);
+
+    window.addEventListener('scroll', () => {
+        header.classList.toggle('scrolled', window.scrollY > 60);
+
+        // Seção ativa no nav
+        let current = '';
+        sections.forEach(s => {
+            if (window.scrollY >= s.offsetTop - 120) current = s.id;
+        });
+        navLinks.forEach(a => {
+            a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+        });
+
+        // Indicador lateral
+        updateSectionDots();
+    }, { passive: true });
+
+    // ── 4. REVEAL ON SCROLL ──
     document.body.classList.add('js-ready');
     const obs = new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+        entries.forEach(e => {
+            if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+        });
     }, { threshold: 0.08 });
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-    // Smooth internal links
+    // ── 5. SMOOTH INTERNAL LINKS ──
     document.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', e => {
             e.preventDefault();
             const el = document.querySelector(a.getAttribute('href'));
             if (el) el.scrollIntoView({ behavior: 'smooth' });
+            // Fecha menu mobile se aberto
+            mobileMenu.classList.remove('open');
+            hamburger.classList.remove('open');
         });
     });
 
-    // Reviews carousel
+    // ── 6. PARTÍCULAS NO HERO ──
+    const container = document.getElementById('heroParticles');
+    for (let i = 0; i < 18; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const size = Math.random() * 4 + 2;
+        p.style.cssText = `
+            width: ${size}px; height: ${size}px;
+            left: ${Math.random() * 100}%;
+            animation-duration: ${Math.random() * 12 + 8}s;
+            animation-delay: ${Math.random() * 8}s;
+            opacity: 0;
+        `;
+        container.appendChild(p);
+    }
+
+    // ── 7. EFEITO DE DIGITAÇÃO NO HERO ──
+    const twTarget = document.getElementById('typewriterTarget');
+    const twCursor = document.getElementById('twCursor');
+    const words = ['disciplina.', 'excelência.', 'confiança.', 'disciplina.'];
+    let wi = 0, ci = 0, deleting = false;
+
+    function typeWriter() {
+        const word = words[wi];
+        if (!deleting) {
+            twTarget.textContent = word.slice(0, ++ci);
+            if (ci === word.length) {
+                deleting = true;
+                setTimeout(typeWriter, 2200);
+                return;
+            }
+        } else {
+            twTarget.textContent = word.slice(0, --ci);
+            if (ci === 0) {
+                deleting = false;
+                wi = (wi + 1) % words.length;
+            }
+        }
+        setTimeout(typeWriter, deleting ? 55 : 100);
+    }
+    setTimeout(typeWriter, 800);
+
+    // ── 8. CONTADOR ANIMADO NAS STATS ──
+    function animateCounter(el, target, suffix, duration = 1800) {
+        const isPercent = suffix === '%';
+        const start = performance.now();
+        el.classList.add('counting');
+        const update = now => {
+            const t = Math.min((now - start) / duration, 1);
+            const ease = 1 - Math.pow(1 - t, 4);
+            const val = Math.round(ease * target);
+            el.textContent = val + suffix;
+            if (t < 1) requestAnimationFrame(update);
+            else { el.textContent = target + suffix; el.classList.remove('counting'); }
+        };
+        requestAnimationFrame(update);
+    }
+
+    const statsObserver = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (!e.isIntersecting) return;
+            const el = e.target;
+            const raw = el.dataset.count;
+            const suffix = el.dataset.suffix || '';
+            animateCounter(el, parseInt(raw), suffix);
+            statsObserver.unobserve(el);
+        });
+    }, { threshold: 0.5 });
+
+    // Configura data attributes nos números
+    const statDefs = [
+        { text: '100%', count: 100, suffix: '%' },
+        { text: '24h',  count: 24,  suffix: 'h' },
+        { text: '15+',  count: 15,  suffix: '+' },
+        { text: '500+', count: 500, suffix: '+' },
+    ];
+    document.querySelectorAll('.stat-number').forEach((el, i) => {
+        if (statDefs[i]) {
+            el.dataset.count  = statDefs[i].count;
+            el.dataset.suffix = statDefs[i].suffix;
+            el.textContent    = statDefs[i].text; // valor inicial visível
+            statsObserver.observe(el);
+        }
+    });
+
+    // ── 9. TEMPORIZADOR REGRESSIVO NO BANNER ──
+    function startCountdown() {
+        const el = document.getElementById('countdown');
+        if (!el) return;
+        // Tempo alvo: 4h a partir de agora, guardado em sessionStorage
+        const key = 'persev_countdown_end';
+        let end = sessionStorage.getItem(key);
+        if (!end) {
+            end = Date.now() + 4 * 60 * 60 * 1000; // 4 horas
+            sessionStorage.setItem(key, end);
+        }
+        end = parseInt(end);
+        const tick = () => {
+            const diff = end - Date.now();
+            if (diff <= 0) { el.textContent = '00:00:00'; return; }
+            const h = String(Math.floor(diff / 3600000)).padStart(2,'0');
+            const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2,'0');
+            const s = String(Math.floor((diff % 60000) / 1000)).padStart(2,'0');
+            el.textContent = `${h}:${m}:${s}`;
+            setTimeout(tick, 1000);
+        };
+        tick();
+    }
+    startCountdown();
+
+    // ── 10. TOAST DE NOTIFICAÇÃO ──
+    const toast = document.getElementById('toast');
+    const toastClose = document.getElementById('toastClose');
+    setTimeout(() => toast && toast.classList.add('show'), 3500);
+    toastClose && toastClose.addEventListener('click', () => toast.classList.remove('show'));
+    setTimeout(() => toast && toast.classList.remove('show'), 9000);
+
+    // ── 11. MENU HAMBURGER MOBILE ──
+    const hamburger   = document.getElementById('hamburger');
+    const mobileMenu  = document.getElementById('mobileMenu');
+    const menuClose   = document.getElementById('mobileMenuClose');
+
+    hamburger && hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('open');
+        mobileMenu.classList.toggle('open');
+    });
+    menuClose && menuClose.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+    });
+    document.querySelectorAll('.mobile-nav-link').forEach(a => {
+        a.addEventListener('click', () => {
+            hamburger.classList.remove('open');
+            mobileMenu.classList.remove('open');
+        });
+    });
+
+    // ── 12. INDICADOR LATERAL DE SEÇÕES ──
+    const dots = document.querySelectorAll('.section-dot');
+    dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+            const target = dot.dataset.target;
+            if (target === 'body') window.scrollTo({ top: 0, behavior: 'smooth' });
+            else {
+                const el = document.querySelector(target);
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+
+    function updateSectionDots() {
+        const scrollMid = window.scrollY + window.innerHeight / 2;
+        const sectionTargets = ['body','#seguranca','#servicos','#resultados','#avaliacoes','#contato'];
+        let activeIdx = 0;
+        sectionTargets.forEach((sel, i) => {
+            if (sel === 'body') return;
+            const el = document.querySelector(sel);
+            if (el && el.offsetTop <= scrollMid) activeIdx = i;
+        });
+        dots.forEach((d, i) => d.classList.toggle('active', i === activeIdx));
+    }
+    updateSectionDots();
+
+    // ── 13. CARROSSEL DE AVALIAÇÕES ──
     (function() {
-        const track = document.getElementById('reviewsTrack');
-        const cards = track.querySelectorAll('.review-card');
-        const dotsEl = document.getElementById('reviewsDots');
+        const track   = document.getElementById('reviewsTrack');
+        const cards   = track.querySelectorAll('.review-card');
+        const dotsEl  = document.getElementById('reviewsDots');
         const btnPrev = document.getElementById('revPrev');
         const btnNext = document.getElementById('revNext');
-        let current = 0;
-        const total = cards.length;
+        let current = 0, total = cards.length;
 
         cards.forEach((_, i) => {
             const d = document.createElement('div');
@@ -1207,22 +1630,18 @@
             dotsEl.appendChild(d);
         });
 
-        function getCardWidth() {
-            return cards[0].offsetWidth + (parseInt(getComputedStyle(track).gap) || 24);
-        }
+        function getW() { return cards[0].offsetWidth + (parseInt(getComputedStyle(track).gap) || 24); }
         function goTo(idx) {
             current = (idx + total) % total;
-            track.style.transform = `translateX(-${current * getCardWidth()}px)`;
-            dotsEl.querySelectorAll('.reviews-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+            track.style.transform = `translateX(-${current * getW()}px)`;
+            dotsEl.querySelectorAll('.reviews-dot').forEach((d,i) => d.classList.toggle('active', i === current));
         }
 
         btnPrev.addEventListener('click', () => goTo(current - 1));
         btnNext.addEventListener('click', () => goTo(current + 1));
-
         let timer = setInterval(() => goTo(current + 1), 5000);
         track.addEventListener('mouseenter', () => clearInterval(timer));
         track.addEventListener('mouseleave', () => { timer = setInterval(() => goTo(current + 1), 5000); });
-
         let startX = 0;
         track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; });
         track.addEventListener('touchend', e => {
